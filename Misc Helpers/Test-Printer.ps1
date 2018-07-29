@@ -34,7 +34,7 @@ Peter Kastberger
 
 $printer = "Send To OneNote 2016"
 
-Measure-Command -Expression {
+$timespan = Measure-Command -Expression {
 
     # Create a PrintDocument and Set it up
     $pd = New-Object System.Drawing.Printing.PrintDocument
@@ -46,3 +46,5 @@ Measure-Command -Expression {
     $pd.Print()
 
 }
+
+$timespan | Select-Object Seconds, TotalMilliseconds, Ticks | Format-Table -AutoSize
