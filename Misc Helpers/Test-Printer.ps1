@@ -11,6 +11,8 @@ Peter Kastberger
 .DATE
 2018-07-29
 #>
+param([String]$Printer="Send To OneNote 2016")
+
 
 # forward declarations/functions
 # Create Handler/Delegate
@@ -23,7 +25,7 @@ Peter Kastberger
 
     $font = New-Object System.Drawing.Font("Arial", 10)
     $ev.Graphics.DrawString(
-        "Test of $printer - $($pd.DocumentName)", 
+        "Test of $Printer - $($pd.DocumentName)", 
         $font, 
         [System.Drawing.Brushes]::Black,
         $ev.MarginBounds.Left,
@@ -32,14 +34,13 @@ Peter Kastberger
     
 }
 
-$printer = "Send To OneNote 2016"
 
 $timespan = Measure-Command -Expression {
 
     # Create a PrintDocument and Set it up
     $pd = New-Object System.Drawing.Printing.PrintDocument
-    $pd.DocumentName = $($printer + " Benchmark")
-    $pd.PrinterSettings.PrinterName = $printer
+    $pd.DocumentName = $($Printer + " Benchmark")
+    $pd.PrinterSettings.PrinterName = $Printer
 
     # Add Handler/Delegate
     $pd.add_PrintPage($pd_printpage)
